@@ -40,7 +40,7 @@ import {
   FileText
 } from 'lucide-react';
 import { Product, CartItem, Order, Review, User as UserType, AdvisorMessage } from './types';
-import { LOOKBOOK_IMAGES, TESTIMONIALS, INSTAGRAM_POSTS } from './data';
+import { LOOKBOOK_IMAGES, TESTIMONIALS, INSTAGRAM_POSTS, INITIAL_PRODUCTS } from './data';
 import { playSoftClick, playLuxuryHover, playPaymentSuccess, toggleGlobalSound } from './components/AudioEngine';
 import CustomCursor from './components/CustomCursor';
 export default function App() {
@@ -184,12 +184,19 @@ export default function App() {
   const fetchProducts = async () => {
     try {
       const res = await fetch('/api/products');
-      const data = await res.json();
-      if (data.products) {
-        setProducts(data.products);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.products) {
+          setProducts(data.products);
+          return;
+        }
       }
+
+      console.warn('Falling back to local product catalog because API returned no products.');
+      setProducts(INITIAL_PRODUCTS);
     } catch (err) {
       console.error('Failed to fetch products:', err);
+      setProducts(INITIAL_PRODUCTS);
     } finally {
       setLoadingProducts(false);
     }
@@ -540,8 +547,9 @@ export default function App() {
   });
 
   // Extract list of all unique colors & sizes for filters
-  const allColors = Array.from(new Set(products.flatMap(p => p.colors)));
-  const allSizes = Array.from(new Set(products.flatMap(p => p.sizes)));
+  const allCategories = ['All', ...Array.from(new Set([...INITIAL_PRODUCTS, ...products].map(p => p.category)))];
+  const allColors = Array.from(new Set([...INITIAL_PRODUCTS, ...products].flatMap(p => p.colors)));
+  const allSizes = Array.from(new Set([...INITIAL_PRODUCTS, ...products].flatMap(p => p.sizes)));
 
   // Fetch reviews when product selection changes
   useEffect(() => {
@@ -1486,7 +1494,7 @@ export default function App() {
                       <div className="space-y-3">
                         <h4 className="text-xs uppercase tracking-[0.2em] text-zinc-500 font-mono font-bold">Category</h4>
                         <div className="space-y-2">
-                          {['All', 'Outerwear', 'Trousers', 'T-Shirts', 'Accessories'].map((cat) => (
+                          {allCategories.map((cat) => (
                             <button
                               key={cat}
                               onClick={() => { onBtnClick(); setFilterCategory(cat); }}
