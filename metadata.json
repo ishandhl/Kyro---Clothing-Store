@@ -1,0 +1,8 @@
+{
+  "name": "KYRO",
+  "description": "Premium cinematic minimalist fashion e-commerce and interactive lookbook powered by a server-side Gemini AI Outfit Stylist.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

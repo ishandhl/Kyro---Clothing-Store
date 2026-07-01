@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Syne", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-brand: #ffffff; /* Restored to Elegant Minimalist Premium White */
+  --color-brand-dim: rgba(255, 255, 255, 0.1);
+}
+
+@layer base {
+  body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Custom scrollbars matching the raw minimal theme */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #000000;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #ffffff;
+    border-radius: 0px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #cccccc;
+  }
+
+  ::selection {
+    background-color: #ffffff;
+    color: #000000;
+  }
+}
+
+/* Striz Streetwear Utility styles */
+.editorial-serif {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+}
+
+.text-space-grotesk {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.font-display {
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
+}
+
+/* Continuous scrolling ticker tape */
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.animate-ticker-fast {
+  display: flex;
+  width: max-content;
+  animation: marquee 12s linear infinite;
+}
+
+/* Raw bold streetwear paneling */
+.striz-panel {
+  background: #000000;
+  border: 1px solid #ffffff;
+  box-shadow: 4px 4px 0px #ffffff;
+}
+
+.striz-panel-accent {
+  background: #000000;
+  border: 2px solid #ffffff;
+  box-shadow: 6px 6px 0px #888888;
+}
+
+/* Custom glow effects for streetwear buttons */
+.striz-glow {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
